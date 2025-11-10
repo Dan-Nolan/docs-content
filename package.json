@@ -6,18 +6,22 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "watch": "node scripts/watch.js",
-    "generate:specs": "node scripts/generate-specs.js"
+    "generate:specs": "node scripts/generate-specs.js",
+    "upload": "node scripts/upload-to-blob.mjs"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "type": "commonjs",
   "dependencies": {
-    "js-yaml": "^4.1.0",
-    "chokidar": "^3.5.3",
     "@apidevtools/json-schema-ref-parser": "^11.0.0",
-    "json-schema-merge-allof": "^0.8.1",
+    "@open-rpc/meta-schema": "^1.14.6",
     "@open-rpc/schema-utils-js": "^1.16.0",
-    "@open-rpc/meta-schema": "^1.14.6"
+    "@upstash/redis": "^1.35.6",
+    "@vercel/blob": "^2.0.0",
+    "chokidar": "^3.5.3",
+    "dotenv": "^17.2.3",
+    "js-yaml": "^4.1.0",
+    "json-schema-merge-allof": "^0.8.1"
   }
 }
