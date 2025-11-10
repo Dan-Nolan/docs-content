@@ -22,11 +22,23 @@ const NEXT_APP_URL = process.env.DOCS_SITE_URL || "http://localhost:3000";
 const REVALIDATE_SECRET = process.env.REVALIDATE_SECRET || "dev-secret";
 const UPLOAD_TO_REDIS = !!process.env.KV_REST_API_URL;
 
+// Auto-detect git branch
+const { execSync } = require("child_process");
+let CURRENT_BRANCH = "main";
+try {
+  CURRENT_BRANCH = execSync("git rev-parse --abbrev-ref HEAD", {
+    encoding: "utf-8",
+  }).trim();
+} catch (error) {
+  console.warn("⚠️  Could not detect git branch, defaulting to 'main'");
+}
+
 // Wait for Redis SDK to load before starting
 redisImportPromise.then(() => {
   console.log("👀 Watching for content changes...");
   console.log(`   Target: ${NEXT_APP_URL}`);
   console.log(`   Redis sync: ${UPLOAD_TO_REDIS ? "enabled" : "disabled"}`);
+  console.log(`   Branch: ${CURRENT_BRANCH}`);
   console.log("");
 
 // Watch all MDX files, docs.yml, and spec YAML files
@@ -68,7 +80,7 @@ async function uploadToRedis(filePath) {
     }
 
     const content = fs.readFileSync(fullPath, 'utf-8');
-    const key = `content:main:${filePath}`;
+    const key = `content:${CURRENT_BRANCH}:${filePath}`;
 
     console.log(`☁️  Uploading to Redis: ${key} (${content.length} bytes)`);
 
@@ -118,7 +130,7 @@ async function triggerRevalidation(changedPath) {
         },
         body: JSON.stringify({
           filePath: changedPath,
-          branch: "main",
+          branch: CURRENT_BRANCH,
         }),
       });
 
