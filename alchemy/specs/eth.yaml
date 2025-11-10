@@ -1,0 +1,267 @@
+openrpc: 1.2.6
+info:
+  title: Ethereum JSON-RPC API
+  version: 1.0.0
+  description: Core Ethereum JSON-RPC methods for interacting with the blockchain
+
+methods:
+  - name: eth_blockNumber
+    summary: Returns the current block number
+    params: []
+    result:
+      name: blockNumber
+      description: Current block number
+      schema:
+        $ref: "./_components/base-types.yaml#/components/schemas/quantity"
+
+  - name: eth_getBalance
+    summary: Returns the balance of an account
+    params:
+      - name: address
+        required: true
+        description: Address to check balance
+        schema:
+          $ref: "./_components/base-types.yaml#/components/schemas/address"
+      - name: blockNumber
+        required: false
+        description: Block number or tag
+        schema:
+          $ref: "./_components/base-types.yaml#/components/schemas/blockNumber"
+    result:
+      name: balance
+      description: Account balance in wei
+      schema:
+        $ref: "./_components/base-types.yaml#/components/schemas/quantity"
+
+  - name: eth_getTransactionCount
+    summary: Returns the number of transactions sent from an address
+    params:
+      - name: address
+        required: true
+        description: Address to get transaction count
+        schema:
+          $ref: "./_components/base-types.yaml#/components/schemas/address"
+      - name: blockNumber
+        required: false
+        description: Block number or tag
+        schema:
+          $ref: "./_components/base-types.yaml#/components/schemas/blockNumber"
+    result:
+      name: transactionCount
+      description: Number of transactions
+      schema:
+        $ref: "./_components/base-types.yaml#/components/schemas/quantity"
+
+  - name: eth_getBlockByNumber
+    summary: Returns information about a block by block number
+    params:
+      - name: blockNumber
+        required: true
+        description: Block number or tag
+        schema:
+          $ref: "./_components/base-types.yaml#/components/schemas/blockNumber"
+      - name: fullTransactions
+        required: true
+        description: If true, returns full transaction objects
+        schema:
+          type: boolean
+    result:
+      name: block
+      description: Block object
+      schema:
+        $ref: "./_components/base-types.yaml#/components/schemas/block"
+
+  - name: eth_getBlockByHash
+    summary: Returns information about a block by block hash
+    params:
+      - name: blockHash
+        required: true
+        description: Block hash
+        schema:
+          $ref: "./_components/base-types.yaml#/components/schemas/hash32"
+      - name: fullTransactions
+        required: true
+        description: If true, returns full transaction objects
+        schema:
+          type: boolean
+    result:
+      name: block
+      description: Block object
+      schema:
+        $ref: "./_components/base-types.yaml#/components/schemas/block"
+
+  - name: eth_getTransactionByHash
+    summary: Returns transaction information by transaction hash
+    params:
+      - name: transactionHash
+        required: true
+        description: Transaction hash
+        schema:
+          $ref: "./_components/base-types.yaml#/components/schemas/hash32"
+    result:
+      name: transaction
+      description: Transaction object
+      schema:
+        $ref: "./_components/base-types.yaml#/components/schemas/transaction"
+
+  - name: eth_getTransactionReceipt
+    summary: Returns the receipt of a transaction
+    params:
+      - name: transactionHash
+        required: true
+        description: Transaction hash
+        schema:
+          $ref: "./_components/base-types.yaml#/components/schemas/hash32"
+    result:
+      name: receipt
+      description: Transaction receipt
+      schema:
+        $ref: "./_components/base-types.yaml#/components/schemas/transactionReceipt"
+
+  - name: eth_sendRawTransaction
+    summary: Sends a signed transaction
+    params:
+      - name: signedTransaction
+        required: true
+        description: Signed transaction data
+        schema:
+          $ref: "./_components/base-types.yaml#/components/schemas/data"
+    result:
+      name: transactionHash
+      description: Transaction hash
+      schema:
+        $ref: "./_components/base-types.yaml#/components/schemas/hash32"
+
+  - name: eth_call
+    summary: Executes a new message call immediately
+    params:
+      - name: transaction
+        required: true
+        description: Transaction call object
+        schema:
+          $ref: "./_components/base-types.yaml#/components/schemas/transaction"
+      - name: blockNumber
+        required: false
+        description: Block number or tag
+        schema:
+          $ref: "./_components/base-types.yaml#/components/schemas/blockNumber"
+    result:
+      name: returnData
+      description: Return value of executed contract
+      schema:
+        $ref: "./_components/base-types.yaml#/components/schemas/data"
+
+  - name: eth_estimateGas
+    summary: Generates and returns an estimate of gas
+    params:
+      - name: transaction
+        required: true
+        description: Transaction call object
+        schema:
+          $ref: "./_components/base-types.yaml#/components/schemas/transaction"
+      - name: blockNumber
+        required: false
+        description: Block number or tag
+        schema:
+          $ref: "./_components/base-types.yaml#/components/schemas/blockNumber"
+    result:
+      name: gas
+      description: Estimated gas amount
+      schema:
+        $ref: "./_components/base-types.yaml#/components/schemas/quantity"
+
+  - name: eth_getCode
+    summary: Returns code at a given address
+    params:
+      - name: address
+        required: true
+        description: Address to get code
+        schema:
+          $ref: "./_components/base-types.yaml#/components/schemas/address"
+      - name: blockNumber
+        required: false
+        description: Block number or tag
+        schema:
+          $ref: "./_components/base-types.yaml#/components/schemas/blockNumber"
+    result:
+      name: code
+      description: Contract code
+      schema:
+        $ref: "./_components/base-types.yaml#/components/schemas/data"
+
+  - name: eth_getStorageAt
+    summary: Returns the value from a storage position
+    params:
+      - name: address
+        required: true
+        description: Address of storage
+        schema:
+          $ref: "./_components/base-types.yaml#/components/schemas/address"
+      - name: position
+        required: true
+        description: Storage position
+        schema:
+          $ref: "./_components/base-types.yaml#/components/schemas/quantity"
+      - name: blockNumber
+        required: false
+        description: Block number or tag
+        schema:
+          $ref: "./_components/base-types.yaml#/components/schemas/blockNumber"
+    result:
+      name: value
+      description: Storage value
+      schema:
+        $ref: "./_components/base-types.yaml#/components/schemas/data"
+
+  - name: eth_chainId
+    summary: Returns the currently configured chain ID
+    params: []
+    result:
+      name: chainId
+      description: Chain ID
+      schema:
+        $ref: "./_components/base-types.yaml#/components/schemas/quantity"
+
+  - name: eth_getLogs
+    summary: Returns an array of all logs matching filter
+    params:
+      - name: filter
+        required: true
+        description: Filter object
+        schema:
+          type: object
+          properties:
+            fromBlock:
+              $ref: "./_components/base-types.yaml#/components/schemas/blockNumber"
+            toBlock:
+              $ref: "./_components/base-types.yaml#/components/schemas/blockNumber"
+            address:
+              oneOf:
+                - $ref: "./_components/base-types.yaml#/components/schemas/address"
+                - type: array
+                  items:
+                    $ref: "./_components/base-types.yaml#/components/schemas/address"
+            topics:
+              type: array
+              items:
+                $ref: "./_components/base-types.yaml#/components/schemas/hash32"
+    result:
+      name: logs
+      description: Array of log objects
+      schema:
+        type: array
+        items:
+          type: object
+          properties:
+            address:
+              $ref: "./_components/base-types.yaml#/components/schemas/address"
+            topics:
+              type: array
+              items:
+                $ref: "./_components/base-types.yaml#/components/schemas/hash32"
+            data:
+              $ref: "./_components/base-types.yaml#/components/schemas/data"
+            blockNumber:
+              $ref: "./_components/base-types.yaml#/components/schemas/quantity"
+            transactionHash:
+              $ref: "./_components/base-types.yaml#/components/schemas/hash32"

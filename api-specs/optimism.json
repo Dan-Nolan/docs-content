@@ -1,0 +1,48 @@
+{
+  "openrpc": "1.2.6",
+  "info": {
+    "title": "optimism API",
+    "version": "1.0.0",
+    "description": "Mock optimism API specification for testing"
+  },
+  "methods": [
+    {
+      "name": "optimism_getInfo",
+      "summary": "Get optimism information",
+      "params": [
+        {
+          "name": "address",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object"
+        }
+      }
+    },
+    {
+      "name": "optimism_getBalance",
+      "summary": "Get optimism balance",
+      "params": [
+        {
+          "name": "address",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "result": {
+        "name": "balance",
+        "schema": {
+          "type": "string"
+        }
+      }
+    }
+  ]
+}

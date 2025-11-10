@@ -1,0 +1,48 @@
+{
+  "openrpc": "1.2.6",
+  "info": {
+    "title": "ethereum API",
+    "version": "1.0.0",
+    "description": "Mock ethereum API specification for testing"
+  },
+  "methods": [
+    {
+      "name": "ethereum_getInfo",
+      "summary": "Get ethereum information",
+      "params": [
+        {
+          "name": "address",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object"
+        }
+      }
+    },
+    {
+      "name": "ethereum_getBalance",
+      "summary": "Get ethereum balance",
+      "params": [
+        {
+          "name": "address",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "result": {
+        "name": "balance",
+        "schema": {
+          "type": "string"
+        }
+      }
+    }
+  ]
+}

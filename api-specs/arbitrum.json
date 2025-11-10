@@ -1,0 +1,48 @@
+{
+  "openrpc": "1.2.6",
+  "info": {
+    "title": "arbitrum API",
+    "version": "1.0.0",
+    "description": "Mock arbitrum API specification for testing"
+  },
+  "methods": [
+    {
+      "name": "arbitrum_getInfo",
+      "summary": "Get arbitrum information",
+      "params": [
+        {
+          "name": "address",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "result": {
+        "name": "result",
+        "schema": {
+          "type": "object"
+        }
+      }
+    },
+    {
+      "name": "arbitrum_getBalance",
+      "summary": "Get arbitrum balance",
+      "params": [
+        {
+          "name": "address",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "result": {
+        "name": "balance",
+        "schema": {
+          "type": "string"
+        }
+      }
+    }
+  ]
+}

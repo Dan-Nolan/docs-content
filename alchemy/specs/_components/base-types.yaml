@@ -1,0 +1,101 @@
+components:
+  schemas:
+    # Common Ethereum types
+    address:
+      title: Address
+      description: Hex-encoded 20-byte Ethereum address
+      type: string
+      pattern: '^0x[a-fA-F0-9]{40}$'
+      example: '0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb'
+
+    hash32:
+      title: 32-byte Hash
+      description: Hex-encoded 32-byte hash
+      type: string
+      pattern: '^0x[a-fA-F0-9]{64}$'
+      example: '0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef'
+
+    blockNumber:
+      title: Block Number
+      description: Block number or tag (latest, earliest, pending)
+      oneOf:
+        - type: string
+          enum: ['latest', 'earliest', 'pending']
+        - type: string
+          pattern: '^0x[a-fA-F0-9]+$'
+          description: Hex-encoded block number
+      example: 'latest'
+
+    quantity:
+      title: Quantity
+      description: Hex-encoded quantity value
+      type: string
+      pattern: '^0x[a-fA-F0-9]+$'
+      example: '0x1234'
+
+    data:
+      title: Data
+      description: Hex-encoded data
+      type: string
+      pattern: '^0x[a-fA-F0-9]*$'
+      example: '0xabcdef'
+
+    transaction:
+      title: Transaction Object
+      description: Ethereum transaction object
+      type: object
+      properties:
+        from:
+          $ref: '#/components/schemas/address'
+        to:
+          $ref: '#/components/schemas/address'
+        gas:
+          $ref: '#/components/schemas/quantity'
+        gasPrice:
+          $ref: '#/components/schemas/quantity'
+        value:
+          $ref: '#/components/schemas/quantity'
+        data:
+          $ref: '#/components/schemas/data'
+        nonce:
+          $ref: '#/components/schemas/quantity'
+
+    transactionReceipt:
+      title: Transaction Receipt
+      description: Ethereum transaction receipt
+      type: object
+      properties:
+        transactionHash:
+          $ref: '#/components/schemas/hash32'
+        blockHash:
+          $ref: '#/components/schemas/hash32'
+        blockNumber:
+          $ref: '#/components/schemas/quantity'
+        from:
+          $ref: '#/components/schemas/address'
+        to:
+          $ref: '#/components/schemas/address'
+        gasUsed:
+          $ref: '#/components/schemas/quantity'
+        status:
+          $ref: '#/components/schemas/quantity'
+
+    block:
+      title: Block Object
+      description: Ethereum block object
+      type: object
+      properties:
+        number:
+          $ref: '#/components/schemas/quantity'
+        hash:
+          $ref: '#/components/schemas/hash32'
+        parentHash:
+          $ref: '#/components/schemas/hash32'
+        timestamp:
+          $ref: '#/components/schemas/quantity'
+        transactions:
+          type: array
+          items:
+            oneOf:
+              - $ref: '#/components/schemas/hash32'
+              - $ref: '#/components/schemas/transaction'

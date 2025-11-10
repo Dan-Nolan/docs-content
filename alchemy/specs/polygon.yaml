@@ -1,0 +1,72 @@
+openrpc: 1.2.6
+info:
+  title: Polygon JSON-RPC API
+  version: 1.0.0
+  description: Polygon-specific JSON-RPC methods
+
+methods:
+  - name: eth_blockNumber
+    summary: Returns the current block number
+    params: []
+    result:
+      name: blockNumber
+      description: Current block number
+      schema:
+        $ref: './_components/base-types.yaml#/components/schemas/quantity'
+
+  - name: eth_getBalance
+    summary: Returns the balance of an account
+    params:
+      - name: address
+        required: true
+        schema:
+          $ref: './_components/base-types.yaml#/components/schemas/address'
+      - name: blockNumber
+        required: false
+        schema:
+          $ref: './_components/base-types.yaml#/components/schemas/blockNumber'
+    result:
+      name: balance
+      schema:
+        $ref: './_components/base-types.yaml#/components/schemas/quantity'
+
+  - name: eth_gasPrice
+    summary: Returns the current gas price
+    params: []
+    result:
+      name: gasPrice
+      schema:
+        $ref: './_components/base-types.yaml#/components/schemas/quantity'
+
+  - name: eth_call
+    summary: Executes a new message call
+    params:
+      - name: transaction
+        required: true
+        schema:
+          $ref: './_components/base-types.yaml#/components/schemas/transaction'
+      - name: blockNumber
+        required: false
+        schema:
+          $ref: './_components/base-types.yaml#/components/schemas/blockNumber'
+    result:
+      name: returnData
+      schema:
+        $ref: './_components/base-types.yaml#/components/schemas/data'
+
+  - name: bor_getSnapshot
+    summary: Returns Polygon-specific snapshot data
+    params:
+      - name: blockNumber
+        required: true
+        schema:
+          $ref: './_components/base-types.yaml#/components/schemas/blockNumber'
+    result:
+      name: snapshot
+      schema:
+        type: object
+        properties:
+          hash:
+            $ref: './_components/base-types.yaml#/components/schemas/hash32'
+          number:
+            $ref: './_components/base-types.yaml#/components/schemas/quantity'

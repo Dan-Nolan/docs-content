@@ -1,0 +1,7 @@
+redirects:
+  - from: /docs/old-getting-started
+    to: /docs/getting-started/page-1
+    permanent: true
+  - from: /docs/legacy-api
+    to: /docs/api-reference/page-1
+    permanent: true

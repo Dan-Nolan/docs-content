@@ -1,0 +1,137 @@
+# api-reference Guide 47
+
+This is a test page for **api-reference** section.
+
+## Overview
+
+This guide covers important concepts about api-reference. Here's what you'll learn:
+
+- Key concept 1
+- Key concept 2
+- Key concept 3
+
+## Prerequisites
+
+Before you begin, make sure you have:
+
+1. Basic understanding of web development
+2. Node.js installed (version 16+)
+3. An API key from the dashboard
+
+## Getting Started
+
+Let's walk through a simple example:
+
+```javascript
+// Example code snippet
+import { AlchemyProvider } from '@alchemy/sdk';
+
+const provider = new AlchemyProvider({
+  apiKey: 'your-api-key',
+  network: 'eth-mainnet'
+});
+
+async function getBlockNumber() {
+  const blockNumber = await provider.getBlockNumber();
+  console.log('Current block:', blockNumber);
+}
+
+getBlockNumber();
+```
+
+### Step 1: Configuration
+
+First, configure your environment:
+
+```bash
+npm install @alchemy/sdk
+```
+
+### Step 2: Initialize
+
+Create a new instance:
+
+```typescript
+const config = {
+  apiKey: process.env.ALCHEMY_API_KEY,
+  network: 'eth-mainnet'
+};
+```
+
+### Step 3: Make Requests
+
+Now you can start making requests:
+
+```javascript
+const balance = await provider.getBalance('0x...');
+console.log(`Balance: ${balance}`);
+```
+
+## Advanced Usage
+
+For more advanced scenarios, you can:
+
+- Use batch requests for better performance
+- Handle errors with try/catch blocks
+- Implement retry logic for failed requests
+
+## Code Example
+
+Here's a complete example:
+
+```typescript
+import { Alchemy, Network } from 'alchemy-sdk';
+
+const settings = {
+  apiKey: process.env.ALCHEMY_API_KEY,
+  network: Network.ETH_MAINNET,
+};
+
+const alchemy = new Alchemy(settings);
+
+async function main() {
+  try {
+    const blockNumber = await alchemy.core.getBlockNumber();
+    console.log('Latest block number:', blockNumber);
+
+    const block = await alchemy.core.getBlock(blockNumber);
+    console.log('Block details:', block);
+  } catch (error) {
+    console.error('Error:', error);
+  }
+}
+
+main();
+```
+
+## Best Practices
+
+1. **Rate Limiting**: Implement exponential backoff
+2. **Error Handling**: Always wrap calls in try/catch
+3. **Caching**: Cache responses when appropriate
+4. **Monitoring**: Track API usage and errors
+
+## Common Issues
+
+### Issue: Rate limit exceeded
+
+If you see rate limit errors, try:
+- Implementing request queuing
+- Using batch requests
+- Upgrading your plan
+
+### Issue: Invalid API key
+
+Make sure your API key is correctly set in your environment variables.
+
+## Next Steps
+
+- [Read about api-reference advanced features](#)
+- [Check out related guides](#)
+- [View API reference](#)
+
+## Related Resources
+
+- [Official Documentation](#)
+- [GitHub Examples](#)
+- [Community Forum](#)
